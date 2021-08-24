@@ -42,6 +42,7 @@ function authenticationRequired(req, res, next) {
   return oktaJwtVerifier.verifyAccessToken(accessToken, audience)
     .then((jwt) => {
       req.jwt = jwt;
+      console.log("verified access token!")
       next();
     })
     .catch((err) => {
@@ -85,6 +86,10 @@ app.get('/api/messages', authenticationRequired, (req, res) => {
       {
         date:  new Date(new Date().getTime() - 1000 * 60 * 60),
         text: 'Hello, world!'
+      },
+      {
+        date:  new Date(new Date().getTime() - 1000 * 60 * 60),
+        text: 'Extra message for storydoc test'
       }
     ]
   });
